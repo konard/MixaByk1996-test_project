@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  bot:
+    build: .
+    container_name: medibot
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    ports:
+      - "3001:3001"
+    networks:
+      - medibot-network
+
+  admin-panel:
+    build: ./admin-panel
+    container_name: medibot-admin
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - bot
+    networks:
+      - medibot-network
+
+  mongo:
+    image: mongo:7
+    container_name: medibot-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - medibot-network
+
+volumes:
+  mongo-data:
+
+networks:
+  medibot-network:
+    driver: bridge
