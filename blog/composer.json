@@ -1,0 +1,17 @@
+{
+    "name": "blog/php-blog",
+    "description": "A simple PHP blog with categories and articles using Smarty templating",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "smarty/smarty": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Blog\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
